@@ -19,7 +19,7 @@ source:
     target_directory: aoclutils
 
 build:
-  number: 0
+  number: 1
 
 
 outputs:
@@ -44,10 +44,10 @@ outputs:
               - test -f $PREFIX/lib/libaoclutils${SHLIB_EXT}
               - test -f $PREFIX/include/alci/alci.h
           - if: win
-            then: 
-            - if not exist %LIBRARY_INC%\\alci\\alci.h exit 1
-            - if not exist %LIBRARY_BIN%\\libaoclutils.dll exit 1
-            - if not exist %LIBRARY_LIB%\\libaoclutils.lib exit 1
+            then:
+              - if not exist %LIBRARY_INC%\\alci\\alci.h exit 1
+              - if not exist %LIBRARY_BIN%\\libaoclutils.dll exit 1
+              - if not exist %LIBRARY_LIB%\\libaoclutils.lib exit 1
   - package:
       name: aocl-blas
       version: ${{ version }}
@@ -62,14 +62,13 @@ outputs:
           then: ${{ compiler("fortran") }}
         - if: not linux
           then: llvm-openmp
-        - if: linux
-          then: libgomp
+          else: libgomp
         - ninja
         - cmake
     tests:
       - script:
           - if: unix
-            then: 
+            then:
               - test -f $PREFIX/lib/libblis-mt${SHLIB_EXT}
               - test -f $PREFIX/include/blis.h
           - if: win
@@ -93,8 +92,7 @@ outputs:
           then: ${{ compiler("fortran") }}
         - if: not linux
           then: llvm-openmp
-        - if: linux
-          then: libgomp
+          else: libgomp
         - ninja
         - cmake
       host:

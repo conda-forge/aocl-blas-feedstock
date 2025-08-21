@@ -19,7 +19,7 @@ source:
     target_directory: aoclutils
 
 build:
-  number: 1
+  number: 2
 
 
 outputs:
@@ -96,6 +96,9 @@ outputs:
         - ninja
         - cmake
       host:
+        - ${{ pin_subpackage('aocl-utils', exact=True) }}
+        - ${{ pin_subpackage('aocl-blas', exact=True) }}
+      run:
         - ${{ pin_subpackage('aocl-utils', exact=True) }}
         - ${{ pin_subpackage('aocl-blas', exact=True) }}
     tests:

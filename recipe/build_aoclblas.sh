@@ -8,6 +8,7 @@ FFLAGS=$(echo "${CFLAGS}" | sed "s/-mtune=[a-zA-Z0-9]*//g")
 cmake -B buildaoclblas -S aoclblas -G Ninja \
       -DBLIS_CONFIG_FAMILY=amdzen \
       -DBUILD_STATIC_LIBS=OFF \
+      -DENABLE_SECURITY_FLAGS=OFF \
       -DENABLE_THREADING=openmp \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       ${CMAKE_ARGS}

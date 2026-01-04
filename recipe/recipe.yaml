@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 5.1
+  version: "5.2"
 
 recipe:
   name: aocl-blas-lapack
@@ -9,17 +9,19 @@ recipe:
 
 source:
   - url: https://github.com/amd/blis/archive/refs/tags/${{ version }}.tar.gz
-    sha256: 4ab210cea8753f4be9646a3ad8e6b42c7d19380084a66312497c97278b8c76a4
+    sha256: c553bd543eedc87920df9b82634ae4c02662145ed737f51fdf4c9bca5e588028
     target_directory: aoclblas
   - url: https://github.com/amd/libflame/archive/refs/tags/${{ version }}.tar.gz
-    sha256: 25524ba78b5952303369fa0859d217e44071144fd122a9dc3f72ed0bd73e3b2d
+    sha256: fb5fe5128f718050c9911443fcf7ed91b60538a40d57084ed0124bb91afabb9b
     target_directory: aocllapack
+    patches:
+      - fixlinkflags.patch
   - url: https://github.com/amd/aocl-utils/archive/refs/tags/${{ version }}.tar.gz
-    sha256: 68d75e04013abe90ea8308a9bc99b99532233b6c7f937f35381563f4124c20a5
+    sha256: db0d807170a6eb73fcccd720a65a3e3aa8a787ae656c46479f7d9b4e1f9ed08a
     target_directory: aoclutils
 
 build:
-  number: 3
+  number: 0
 
 
 outputs:
@@ -107,10 +109,10 @@ outputs:
             then:
               - test -f $PREFIX/lib/libflame${SHLIB_EXT}
               - test -f $PREFIX/include/lapacke.h
-              - test -f $PREFIX/include/libflame.hh
+              - test -f $PREFIX/include/lapack.h
+              - test -f $PREFIX/lib/pkgconfig/flame.pc
           - if: win
             then:
-              - if not exist %LIBRARY_INC%\\libflame.hh exit 1
               - if not exist %LIBRARY_BIN%\\AOCL-LibFlame-Win-MT-dll.dll exit 1
               - if not exist %LIBRARY_LIB%\\AOCL-LibFlame-Win-MT-dll.lib exit 1
 

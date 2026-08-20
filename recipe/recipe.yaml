@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "5.2"
+  version: "5.3.2"
 
 recipe:
   name: aocl-blas-lapack
@@ -9,15 +9,15 @@ recipe:
 
 source:
   - url: https://github.com/amd/blis/archive/refs/tags/${{ version }}.tar.gz
-    sha256: c553bd543eedc87920df9b82634ae4c02662145ed737f51fdf4c9bca5e588028
+    sha256: e70d28f600894a047e16e749a3c5aaa81a1b50f3e84c6484021ffba17aaed0e5
     target_directory: aoclblas
   - url: https://github.com/amd/libflame/archive/refs/tags/${{ version }}.tar.gz
-    sha256: fb5fe5128f718050c9911443fcf7ed91b60538a40d57084ed0124bb91afabb9b
+    sha256: 03990c3d4ead16f6d4738036d1c1c1804117243df5875e9e9a398f4fce7deab4
     target_directory: aocllapack
     patches:
       - fixlinkflags.patch
   - url: https://github.com/amd/aocl-utils/archive/refs/tags/${{ version }}.tar.gz
-    sha256: db0d807170a6eb73fcccd720a65a3e3aa8a787ae656c46479f7d9b4e1f9ed08a
+    sha256: 7517c522997f5693091300458a3e6ef8cab65ee56c566a0d385008878b2f7c1a
     target_directory: aoclutils
 
 build:
